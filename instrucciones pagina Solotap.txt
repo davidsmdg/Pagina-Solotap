@@ -1,0 +1,129 @@
+# CONTEXTO DEL PROYECTO: SOLOTAP
+Actúa como un Desarrollador Web Full-Stack Senior y Experto en SEO Técnico/LLM. 
+Tu objetivo es desarrollar el código (HTML, CSS, JS o bloques de WordPress) para el sitio web de "SOLOTAP". 
+
+**Sobre la empresa:** SOLOTAP es una empresa familiar colombiana constituida en 1995 (Bogotá), fabricante y distribuidora directa de tapetes atrapamugre, soluciones industriales, institucionales y para el hogar. Su valor principal es el "trabajo bien hecho, con un toque personal" y el cumplimiento.
+
+**Productos Excluidos (NUNCA MENCIONAR):**
+- Desinfección / Tapetes desinfectantes.
+- Atrapahumedad Acanalado.
+
+---
+
+# ARQUITECTURA DEL SITIO (SITEMAP)
+El sitio debe contener exclusivamente las siguientes secciones/categorías:
+1. **Inicio** (Landing page principal).
+2. **Negocio/Funcional:** Atrapamugre Tráfico Extrapesado, Atrapamugre Tráfico Medio, Atrapahumedad Granulado, Publicitaria (tapetes con logo).
+3. **Hogar:** Lana personalizado.
+4. **Caucho Gym:** Pisos para gimnasios, Alumat.
+5. **Sobre Nosotros:** Historia familiar desde 1995.
+6. **Contacto:** Sede (Carrera 17 No 22A – 50, Bogotá), Teléfonos (311 467 5594 / 311 464 4743), Email (solotap@hotmail.com), Redes (Facebook), Mapa y WhatsApp.
+
+---
+
+# REGLAS TÉCNICAS Y DE RENDIMIENTO (OBLIGATORIAS)
+- **Cero Imágenes con Texto Incrustado:** Toda infografía o tabla de datos debe ser construida en HTML/CSS nativo para que los motores de búsqueda y las IAs puedan leer los datos (espesor, tráfico, colores).
+- **Animaciones Optimizadas:** Usa `IntersectionObserver` de JavaScript para activar animaciones solo cuando el usuario hace scroll hacia esa sección. Anima SOLO las propiedades CSS `transform` y `opacity`.
+- **Estructura Semántica:** Usa `<header>`, `<main>`, `<section>`, y `<footer>`. Emplea etiquetas `H1`, `H2`, `H3` en orden lógico estricto.
+- **Iconografía:** Usa exclusivamente SVGs integrados en el código (no PNGs ni JPGs) para las características de los productos.
+
+---
+
+# COMPONENTES CLAVE A DESARROLLAR (CUANDO SE SOLICITEN)
+
+**1. Infografía Interactiva de Atrapamugres (Tráfico Medio y Extrapesado):**
+Cuando se te pida esta sección, debes generar un grid moderno con:
+- **Contadores Animados (JS):** Números que suben de 0 a su valor final al hacer scroll: Espesor (hasta 12mm y 17mm) y Resistencia (hasta 1.500 y 4.000 personas/día).
+- **Grid de Cualidades:** Tarjetas pequeñas con iconos SVG para: *Retiene mugre, Antideslizante, No inflamable, Evita hongos, Protege pisos, Sin estática, Resistente*. 
+- **Mantenimiento:** Iconos SVG para: *Voltear diariamente, Golpear para sacar mugre, Lavar con detergente suave, Secar boca abajo*.
+- **Paleta de Colores Interactiva:** Una cuadrícula de círculos de colores (Negro, Gris Oscuro, Gris Claro, Blanco, Amarillo, Ocre, Naranja, Vinotinto, Verde Oscuro, Verde Claro, Verde Biche, Rojo, Rosado, Morado, Beige, Café, Azul Cielo, Azul Oscuro, Azul Rey) que al pasar el mouse muestre el nombre del color mediante un *tooltip* o efecto hover.
+
+**2. Sección de Social Proof (Clientes):**
+Un carrusel o grid de logos de "Empresas que confían en nosotros" en escala de grises con efecto hover a color.
+
+**3. Sección Sobre Nosotros:**
+Debe resaltar el año "1995" y el concepto de "empresa familiar" usando tipografía destacada y un diseño que transmita confianza y trayectoria.
+
+Documento Maestro: Arquitectura Web Híbrida (UI Moderna + SEO/IA Extremo)
+1. Estrategia de Animaciones y Efectos (Rendimiento)
+Para tener una web moderna sin destruir tu SEO (Core Web Vitals), el navegador debe renderizar el contenido crítico de inmediato y dejar los "adornos" para después.
+
+Aceleración por Hardware: Solo se deben animar las propiedades CSS transform y opacity. Nunca animar margin, padding, width o top/left, ya que esto obliga al navegador a recalcular el diseño de toda la página, arruinando el rendimiento y tu nota en Google.
+
+Intersection Observer API: Ninguna animación debe cargarse ni ejecutarse hasta que el usuario haga scroll y llegue a esa sección.
+
+Librerías Ligeras: Si necesitas efectos complejos, usa GSAP (GreenSock) pero cárgalo de forma diferida (defer). Para efectos sencillos, usa CSS puro o librerías minúsculas como Framer Motion (si usas React) o AOS (Animaton on Scroll) optimizado.
+
+2. Estructura de Secciones (HTML Semántico para IAs)
+Tu página tendrá varias secciones. Para que una IA entienda de qué trata cada una sin confundirse, la estructura debe ser estricta:
+
+<header>: Solo para la navegación.
+
+<main>: Envuelve todo el contenido importante.
+
+<section>: Cada sección moderna de tu web (Servicios, Nosotros, Precios) debe estar en una etiqueta <section> independiente.
+
+Atributos aria-label: Cada sección debe tener una etiqueta descriptiva (ej. <section aria-label="Nuestros Servicios de Consultoría">). Las IAs usan esto para indexar el contexto rápidamente.
+
+3. Integración en WordPress
+Para que sea fácil de alojar pero ultra rápido:
+
+Tema Personalizado o Constructor Ligero: Huye de constructores pesados como Elementor o Divi si no están bien optimizados. Prefiere GeneratePress, Kadence, o desarrolla un tema basado en Gutenberg (Bloques nativos) usando React/JavaScript.
+
+Carga de Scripts Condicional: Los scripts de animaciones solo deben cargarse en las páginas que realmente los usan, no en toda la web.
+
+📋 Código para tu "Antigravity" / Instrucciones Base
+Copia y pega el siguiente bloque en tu sistema de instrucciones o prompt maestro. De esta forma, cualquier código o contenido que generes a partir de ahora respetará tu estándar:
+
+Markdown
+# INSTRUCCIONES MAESTRAS DE DESARROLLO WEB (Nicho Optimizado)
+
+## OBJETIVO PRINCIPAL:
+Desarrollar componentes web modernos para WordPress que incluyan animaciones y efectos visuales de alta calidad, MANTENIENDO un rendimiento de 90+ en Google PageSpeed Insights y una optimización extrema para modelos de lenguaje (LLMs) y motores de búsqueda.
+
+## REGLAS ESTRICTAS DE CÓDIGO Y UI:
+
+1. **Rendimiento de Animaciones:**
+   - Usa EXCLUSIVAMENTE CSS `transform` y `opacity` para animaciones. 
+   - Prohibido animar propiedades que causen "Layout Shifts" (Reflows).
+   - Implementa `IntersectionObserver` para activar clases CSS de animación solo cuando el elemento entre en el viewport.
+
+2. **Estructura Semántica (IA-First):**
+   - Todo el contenido principal debe estar dentro de `<main>`.
+   - Divide los bloques en etiquetas `<section>` o `<article>`.
+   - Usa una jerarquía de encabezados estricta (`<h1>` único por página, seguido de `<h2>`, `<h3>` secuenciales).
+
+3. **Datos Estructurados (JSON-LD):**
+   - Genera siempre un script de tipo `application/ld+json` para inyectar Schema Markup en el `<head>`. 
+   - Dependiendo del nicho, incluye schemas de `Organization`, `WebPage`, `Service` o `FAQPage`.
+
+4. **Optimización de Activos (WordPress):**
+   - Imágenes siempre en formato WebP o AVIF con atributos `loading="lazy"` (excepto la imagen principal "Above the Fold", que debe llevar `fetchpriority="high"`).
+   - El código CSS y JS de los efectos debe estar encapsulado o ser modular para poder encolarse condicionalmente en WordPress mediante `wp_enqueue_script`.
+
+5. **Compatibilidad con LLMs:**
+   - Asegura que el texto sea extraíble fácilmente (no incrustes texto crítico en imágenes, canvas o pseudo-elementos complejos de CSS).
+
+# DESIGN SYSTEM Y DIRECCIÓN DE ARTE (MINIMALISMO EDITORIAL CON IDENTIDAD DE MARCA)
+
+**Visión General:** El diseño debe ser extremadamente limpio, sofisticado y de alto contraste, inspirado en el diseño editorial y el "Brutalismo Elegante". NINGÚN elemento debe verse anticuado o saturado. La identidad visual se basará en la elegancia del espacio negativo y el uso estratégico del color azul corporativo.
+
+**1. Tipografía (El pilar del diseño):**
+- **Familia tipográfica:** Usar una fuente Sans-Serif moderna, geométrica y de palo seco (Ej: *Inter, Helvetica Neue, SF Pro, o Space Grotesk*).
+- **Contraste extremo:** Los titulares (H1, H2) deben ser GIGANTES, ocupando gran parte del ancho de la pantalla con un peso tipográfico fuerte (Bold/Black) o muy fino (Light).
+- **Cuerpo de texto:** Debe ser pequeño, limpio y con un excelente interlineado (line-height: 1.5 o superior) para máxima legibilidad.
+
+**2. Paleta de Colores (Escala Tonal Azul SOLOTAP):**
+- **Fondos Principales:** Blanco puro (#FFFFFF) o un gris/azul hielo extremadamente sutil (ej. #F5F7FA) para separar secciones sin usar sombras. El uso del espacio negativo (espacio vacío) debe ser masivo.
+- **Textos y Titulares:** En lugar de negro puro, usar un **Azul Marino Profundo** (ej. #0A192F o #001529). Esto mantiene el contraste alto pero aporta una elegancia corporativa superior al negro estándar.
+- **Acentos (Azul SOLOTAP):** El azul característico de la marca debe usarse SOLO como color de acento. Aplicarlo en: subrayados sutiles, botones de "Llamado a la acción" (CTA), iconos SVG, o al hacer *hover* sobre enlaces. 
+- **Ausencia de adornos:** PROHIBIDO el uso de degradados complejos y sombras pesadas (box-shadow).
+
+**3. Estructura y UI (Grid y Bordes):**
+- **Líneas divisorias:** En lugar de separar secciones con colores de fondo distintos, usa líneas finas sólidas de 1px (borders) en color azul muy claro o gris para crear cuadrículas (grids) visibles (como en la sección de "Logos de Clientes" o el "Footer").
+- **Imágenes:** Bordes afilados (border-radius: 0). Nada de esquinas redondeadas en fotografías grandes.
+- **Botones y Enlaces:** Estilo minimalista. Enlaces tipo texto subrayado con una línea fina azul, o botones rectangulares de bordes afilados (fondo azul corporativo con texto blanco).
+
+**4. Interacciones Visuales (Hover):**
+- **Imágenes y Logos:** Todas las fotos secundarias o logos de clientes deben estar en escala de grises (o con un filtro azul oscuro monocromático) por defecto, y revelar su color original (o hacer un ligero zoom sin deformar el contenedor) únicamente al hacer *hover*.
+- **Transiciones:** Suaves y elegantes (ej. `transition: all 0.3s ease-in-out`).

@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atrapamugre | SOLOTAP - Tapetes de Alto Tráfico</title>
+    <meta name="description" content="Tapetes atrapamugre para tráfico medio y extrapesado. Fabricación directa colombiana desde 1995.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* ─── ATRAPAMUGRE PAGE ISOLATED STYLES ─── */
+
+        /* Hero estático */
+        .am-hero {
+            background: #fff;
+            padding: 6rem 4rem 4rem;
+            border-bottom: 1px solid rgba(10,25,47,0.12);
+        }
+        .am-hero h1 {
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 900;
+            letter-spacing: -0.03em;
+            line-height: 1;
+            text-transform: uppercase;
+            color: #0A192F;
+            margin-bottom: 1.5rem;
+        }
+        .am-hero p {
+            font-size: 1.1rem;
+            max-width: 55ch;
+            opacity: 0.6;
+            line-height: 1.6;
+        }
+
+        /* Tabs de selección */
+        .am-tabs {
+            display: flex;
+            background: #fff;
+            border-bottom: 1px solid rgba(10,25,47,0.12);
+        }
+        .am-tab {
+            flex: 1;
+            padding: 2rem 4rem;
+            background: none;
+            border: none;
+            border-right: 1px solid rgba(10,25,47,0.12);
+            cursor: pointer;
+            text-align: left;
+            font-family: 'Inter', sans-serif;
+            transition: background 0.3s;
+            opacity: 0.4;
+        }
+        .am-tab:last-child { border-right: none; }
+        .am-tab.active { opacity: 1; background: #F5F7FA; }
+        .am-tab .t-label {
+            display: block;
+            font-size: 0.7rem;
+            font-weight: 900;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: #0056D2;
+            margin-bottom: 0.4rem;
+        }
+        .am-tab .t-name {
+            display: block;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #0A192F;
+        }
+
+        /* Layout principal de 3 columnas */
+        .am-core {
+            display: grid;
+            grid-template-columns: 280px 1fr 300px;
+            min-height: 75vh;
+            border-bottom: 1px solid rgba(10,25,47,0.12);
+        }
+
+        /* Columna Izquierda: Specs */
+        .am-specs {
+            padding: 3rem 2.5rem;
+            background: #fff;
+            border-right: 1px solid rgba(10,25,47,0.12);
+            overflow: hidden;
+        }
+        .traffic-data { display: none; }
+        .traffic-data.active { display: block; }
+
+        .stat-block { padding: 2.5rem 0; border-bottom: 1px solid rgba(10,25,47,0.08); }
+        .stat-block:last-child { border-bottom: none; }
+        .stat-num {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #0056D2;
+            line-height: 1;
+        }
+        .stat-unit { font-size: 1.2rem; font-weight: 600; vertical-align: text-top; margin-left: 4px; }
+        .stat-text { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; opacity: 0.5; margin-top: 0.5rem; letter-spacing: 0.05em; }
+
+        .benefits-block { padding: 2rem 0; }
+        .benefits-block h4 {
+            font-size: 0.65rem;
+            font-weight: 900;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            opacity: 0.4;
+            margin-bottom: 1.5rem;
+        }
+        .benefits-block li {
+            list-style: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid rgba(10,25,47,0.06);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: #0A192F;
+        }
+        .benefits-block li::before { content: '→'; color: #0056D2; font-weight: 900; }
+
+        .product-description-mini { padding-bottom: 2rem; border-bottom: 1px solid rgba(10,25,47,0.08); }
+        .product-description-mini p { font-size: 0.95rem; line-height: 1.6; color: #0A192F; opacity: 0.8; }
+        .product-description-mini strong { color: #0056D2; font-weight: 700; }
+
+        /* Columna Central: Monitor */
+        .am-monitor {
+            position: relative;
+            background: #0A192F;
+            overflow: hidden;
+        }
+        .monitor-slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 0.55s ease;
+            display: flex;
+            align-items: flex-end;
+        }
+        .monitor-slide.active { opacity: 1; z-index: 2; }
+        .monitor-slide img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .monitor-caption {
+            position: relative;
+            z-index: 3;
+            margin: 2.5rem;
+            background: #fff;
+            padding: 0.9rem 1.8rem;
+            font-size: 0.8rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #0A192F;
+            max-width: 280px;
+        }
+
+        /* Columna Derecha: Controles */
+        .am-controls {
+            background: #F5F7FA;
+            border-left: 1px solid rgba(10,25,47,0.12);
+            display: flex;
+            flex-direction: column;
+        }
+        .ctrl-block {
+            padding: 2.5rem 2rem;
+            border-bottom: 1px solid rgba(10,25,47,0.12);
+            flex: 1;
+        }
+        .ctrl-block:last-child { border-bottom: none; }
+        .ctrl-title {
+            font-size: 0.65rem;
+            font-weight: 900;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            opacity: 0.4;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        /* Paleta de colores – cuadrícula */
+        .swatch-palette {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 6px;
+        }
+        .sw {
+            aspect-ratio: 1;
+            cursor: pointer;
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid transparent;
+        }
+        .sw:hover { transform: scale(1.18); border-color: rgba(0,86,210,0.4); z-index: 5; }
+        .sw.active-sw { border-color: #0056D2; }
+        .selected-color-name {
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-top: 1rem;
+            color: #0056D2;
+            min-height: 1.2em;
+            letter-spacing: 0.05em;
+        }
+
+        /* Mantenimiento */
+        .maint-steps { display: flex; flex-direction: column; gap: 0.5rem; }
+        .maint-step-btn {
+            background: #fff;
+            border: 1px solid rgba(10,25,47,0.12);
+            padding: 1rem 1.25rem;
+            text-align: left;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            color: #0A192F;
+            transition: all 0.25s;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .maint-step-btn .step-num {
+            font-size: 0.65rem;
+            font-weight: 900;
+            color: #0056D2;
+            opacity: 0.7;
+            white-space: nowrap;
+        }
+        .maint-step-btn:hover,
+        .maint-step-btn.active-maint {
+            background: #0A192F;
+            color: #fff;
+            border-color: #0A192F;
+        }
+        .maint-step-btn:hover .step-num,
+        .maint-step-btn.active-maint .step-num { color: #87CEEB; }
+
+        /* Galería editorial */
+        .am-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            height: 45vh;
+            border-top: 1px solid rgba(10,25,47,0.12);
+        }
+        .gal-item {
+            background-size: cover;
+            background-position: center;
+            filter: grayscale(1);
+            transition: filter 0.5s ease;
+            border-right: 1px solid rgba(10,25,47,0.12);
+        }
+        .gal-item:last-child { border-right: none; }
+        .gal-item:hover { filter: grayscale(0); }
+
+        /* Responsive */
+        @media (max-width: 1100px) {
+            .am-core { grid-template-columns: 1fr; }
+            .am-specs, .am-controls { border-right: none; border-left: none; border-bottom: 1px solid rgba(10,25,47,0.12); }
+            .am-monitor { min-height: 55vw; }
+            .am-gallery { grid-template-columns: 1fr; height: auto; }
+            .gal-item { aspect-ratio: 4/3; border-right: none; border-bottom: 1px solid rgba(10,25,47,0.12); }
+        }
+        @media (max-width: 768px) {
+            .am-hero { padding: 4rem 2rem 2rem; }
+            .am-tab { padding: 1.5rem 1.5rem; }
+            .am-tab .t-name { font-size: 1rem; }
+            .swatch-palette { grid-template-columns: repeat(6, 1fr); }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- HEADER igual al resto del sitio -->
+    <header class="site-header">
+        <div class="grid-container nav-wrapper">
+            <a href="index.html" class="logo">
+                <img src="https://i.ibb.co/zVbSCt5L/asdcs.png" alt="SOLOTAP Logo" class="logo-img">
+            </a>
+            <button class="menu-toggle" aria-label="Abrir Menú">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+        <!-- Menú Hamburguesa Overlay -->
+        <nav class="mega-menu">
+            <div class="grid-container menu-content">
+                <div class="menu-col" style="grid-column: span 2;">
+                    <h3 class="menu-cat">Empresa</h3>
+                    <ul>
+                        <li><a href="atrapamugre.html">Atrapamugre Tráfico Pesado</a></li>
+                        <li><a href="atrapamugre.html">Atrapamugre Tráfico Medio</a></li>
+                        <li><a href="index.html#alumat">Alumat (Negocios)</a></li>
+                        <li><a href="index.html#humedad">Atrapahumedad Granulado</a></li>
+                        <li><a href="index.html#publicitaria">Publicitaria (Logos)</a></li>
+                    </ul>
+                </div>
+                <div class="menu-col" style="grid-column: span 2;">
+                    <h3 class="menu-cat">Hogar</h3>
+                    <ul>
+                        <li><a href="index.html#lana">Lana Personalizado</a></li>
+                    </ul>
+                    <h3 class="menu-cat" style="margin-top: 2rem;">Gimnasio</h3>
+                    <ul>
+                        <li><a href="index.html#pisos-gym">Pisos Caucho / Gym</a></li>
+                    </ul>
+                    <h3 class="menu-cat" style="margin-top: 2rem; color: #FFD700; opacity: 1;">Diseñalo</h3>
+                    <ul style="margin: 0; padding: 0; list-style: none;">
+                        <li class="menu-cta-item" style="margin-top: 0.5rem;"><a href="index.html#crea-online" class="menu-cta-btn standout-cta" style="font-size: 1.2rem; padding: 1.4rem 2.8rem; width: 100%; border: 3px solid #FFD700;">Crea tu tapete online</a></li>
+                    </ul>
+                </div>
+                <div class="menu-col" style="grid-column: span 2;">
+                    <h3 class="menu-cat">Nosotros</h3>
+                    <ul>
+                        <li><a href="index.html#nosotros">Nuestra Historia</a></li>
+                        <li><a href="index.html#contacto-form">Contacto Directo</a></li>
+                    </ul>
+                </div>
+                <!-- Columna de Previsualización GIGANTE (50% de la pantalla) -->
+                <div class="menu-preview-col" style="grid-column: span 6; background: rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; padding: 4rem;">
+                    <div id="menu-image-preview" style="width: 100%; max-width: 800px; text-align: center;">
+                        <img id="menu-preview-img" src="https://i.ibb.co/zVbSCt5L/asdcs.png" alt="Vista previa" style="width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 30px 60px rgba(0,0,0,0.5); opacity: 0; transform: scale(0.95); transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);">
+                        <p id="menu-preview-text" style="font-size: 1rem; color: #FFD700; text-transform: uppercase; letter-spacing: 0.2em; font-weight: 900; margin-top: 2rem;"></p>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+
+        <!-- HERO ESTÁTICO (Banner) -->
+        <section class="am-hero fade-in">
+            <h1>Tapetes<br>Atrapamugre</h1>
+            <p>Fabricación directa en Bogotá desde 1995. Soluciones de retención de suciedad y protección de pisos para accesos de alto tráfico industrial e institucional.</p>
+        </section>
+
+        <!-- TABS: TRÁFICO EXTRAPESADO / TRÁFICO MEDIO -->
+        <section class="am-tabs fade-in">
+            <button class="am-tab active" id="tab-pesado" data-target="pesado">
+                <span class="t-label">Línea Industrial</span>
+                <span class="t-name">Tráfico Extrapesado</span>
+            </button>
+            <button class="am-tab" id="tab-medio" data-target="medio">
+                <span class="t-label">Línea Institucional</span>
+                <span class="t-name">Tráfico Medio</span>
+            </button>
+        </section>
+
+        <!-- SECCIÓN INTERACTIVA PRINCIPAL -->
+        <section class="am-core">
+
+            <!-- COL 1: Especificaciones (cambia con tabs) -->
+            <div class="am-specs">
+                <!-- Tráfico Extrapesado -->
+                <div class="traffic-data active" id="data-pesado">
+                    <div class="product-description-mini">
+                        <p>Es un tapete elegante usado en el ámbito institucional, comercial y residencial. Al ser un tapete de alta resistencia es ideal para uso en <strong>ingreso e interiores de ascensores, lobbies, auditorios, pasillos e ingreso de áreas comunes</strong>, entre otros.</p>
+                    </div>
+                    <div class="stat-block">
+                        <div class="stat-num" data-target="17">0<span class="stat-unit">mm</span></div>
+                        <div class="stat-text">Espesor Máximo</div>
+                    </div>
+                    <div class="stat-block">
+                        <div class="stat-num" data-target="4000">0<span class="stat-unit">+</span></div>
+                        <div class="stat-text">Personas por día</div>
+                    </div>
+                    <div class="benefits-block">
+                        <h4>Beneficios</h4>
+                        <ul>
+                            <li>Máxima retención de mugre</li>
+                            <li>Protección de pisos</li>
+                            <li>Antideslizante certificado</li>
+                            <li>Ignífugo de fábrica</li>
+                            <li>Resistente a químicos</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Tráfico Medio -->
+                <div class="traffic-data" id="data-medio">
+                    <div class="product-description-mini">
+                        <p>Es un tapete usado en el ámbito residencial y comercial ideal para <strong>ingresos a casas y apartamentos</strong>. El principal atributo de este material es la gran versatilidad en cuanto a personalización, permitiendo <strong>diseños más complejos en un menor tamaño</strong>.</p>
+                    </div>
+                    <div class="stat-block">
+                        <div class="stat-num" data-target="12">0<span class="stat-unit">mm</span></div>
+                        <div class="stat-text">Espesor Estándar</div>
+                    </div>
+                    <div class="stat-block">
+                        <div class="stat-num" data-target="1500">0<span class="stat-unit">+</span></div>
+                        <div class="stat-text">Personas por día</div>
+                    </div>
+                    <div class="benefits-block">
+                        <h4>Beneficios</h4>
+                        <ul>
+                            <li>Estética y confort</li>
+                            <li>Fácil manipulación</li>
+                            <li>Variedad de colores</li>
+                            <li>Ideal para oficinas</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- COL 2: Monitor / Visualizador -->
+            <div class="am-monitor">
+                <!-- Vista por defecto -->
+                <div class="monitor-slide active" id="slide-default">
+                    <img src="https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?q=80&w=1200&auto=format&fit=crop" alt="Tapete Atrapamugre Solotap">
+                    <div class="monitor-caption">Calidad colombiana desde 1995</div>
+                </div>
+                <!-- Vista color -->
+                <div class="monitor-slide" id="slide-color">
+                    <img src="" alt="Color seleccionado" id="monitor-color-img">
+                    <div class="monitor-caption" id="monitor-color-txt">—</div>
+                </div>
+                <!-- Vista mantenimiento -->
+                <div class="monitor-slide" id="slide-maint">
+                    <img src="" alt="Mantenimiento" id="monitor-maint-img">
+                    <div class="monitor-caption" id="monitor-maint-txt">—</div>
+                </div>
+            </div>
+
+            <!-- COL 3: Controles -->
+            <div class="am-controls">
+
+                <!-- Paleta de Colores -->
+                <div class="ctrl-block">
+                    <span class="ctrl-title">Paleta de Colores</span>
+                    <div class="swatch-palette">
+                        <div class="sw" style="background:#111111" data-color="Negro"
+                            data-img="https://images.unsplash.com/photo-1595428774223-ef52624120ec?q=80&w=900&auto=format&fit=crop"></div>
+                        <div class="sw" style="background:#4a4a4a" data-color="Gris Oscuro"
+                            data-img="https://images.unsplash.com/photo-1544207427-ada1e80d1e17?q=80&w=900&auto=format&fit=crop"></div>
+                        <div class="sw" style="background:#b0b0b0" data-color="Gris Claro"
+                            data-img="https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=900&auto=format&fit=crop"></div>
+                        <div class="sw" style="background:#f0f0f0;border:1px solid #ccc" data-color="Blanco"
+                            data-img="https://images.unsplash.com/photo-1518133910546-b6c2fb7d79e3?q=80&w=900&auto=format&fit=crop"></div>
+                        <div class="sw" style="background:#1a4d1a" data-color="Verde Oscuro"
+                            data-img="https://images.unsplash.com/photo-1528642463367-1d3083c1c7bb?q=80&w=900&auto=format&fit=crop"></div>
+
+                        <div class="sw" style="background:#5ca05c" data-color="Verde Claro"
+                            data-img="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=900&auto=format&fit=crop"></div>
+                        <div class="sw" style="background:#a8c8a8" data-color="Verde Biche"
+                            data-img="https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?q=80&w=900&auto=format&fit=crop"></div>
+                        <div class="sw" style="background:#cc0000" data-color="Rojo"
+                            data-img="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=900&auto=format&fit=crop"></div>
+                        <div class="sw" style="background:#87CEEB" data-color="Azul Cielo"
+                            data-img="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=900&auto=format&fit=crop"></div>
+                        <div class="sw" style="background:#4169E1" data-color="Azul Rey"
+                            data-img="https://images.unsplash.com/photo-1557683316-973673baf926?q=80&w=900&auto=format&fit=crop"></div>
+
+                        <div class="sw" style="background:#00008B" data-color="Azul Oscuro"
+                            data-img="https://images.unsplash.com/photo-1533035353720-f1c6a75cd8ab?q=80&w=900&auto=format&fit=crop"></div>
+                        <div class="sw" style="background:#d4aa00" data-color="Amarillo"
+                            data-img="https://images.unsplash.com/photo-1588600036302-237a346f007e?q=80&w=900&auto=format&fit=crop"></div>
+                        <div class="sw" style="background:#b35a00" data-color="Ocre"
+                            data-img="https://images.unsplash.com/photo-1544383333-54522c03b27e?q=80&w=900&auto=format&fit=crop"></div>
+                        <div class="sw" style="background:#e06600" data-color="Naranja"
+                            data-img="https://images.unsplash.com/photo-1563245372-f21724e3856d?q=80&w=900&auto=format&fit=crop"></div>
+                        <div class="sw" style="background:#6b0020" data-color="Vinotinto"
+                            data-img="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?q=80&w=900&auto=format&fit=crop"></div>
+
+                        <div class="sw" style="background:#e8709a" data-color="Rosado"
+                            data-img="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=900&auto=format&fit=crop"></div>
+                        <div class="sw" style="background:#6b0080" data-color="Morado"
+                            data-img="https://images.unsplash.com/photo-1560114928-40f1f1eb26a0?q=80&w=900&auto=format&fit=crop"></div>
+                        <div class="sw" style="background:#d4c4a0" data-color="Beige"
+                            data-img="https://images.unsplash.com/photo-1596492784531-6e6eb5ea9993?q=80&w=900&auto=format&fit=crop"></div>
+                        <div class="sw" style="background:#6b3010" data-color="Café"
+                            data-img="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=900&auto=format&fit=crop"></div>
+                    </div>
+                    <div class="selected-color-name" id="color-name-display"></div>
+                </div>
+
+                <!-- Mantenimiento -->
+                <div class="ctrl-block">
+                    <span class="ctrl-title">Mantenimiento</span>
+                    <div class="maint-steps">
+                        <button class="maint-step-btn" id="ms1"
+                            data-step="Paso 1 — Voltear diariamente"
+                            data-img="https://images.unsplash.com/photo-1581578731548-c64695cc6958?q=80&w=900&auto=format&fit=crop">
+                            <span class="step-num">01</span>
+                            Voltear diariamente
+                        </button>
+                        <button class="maint-step-btn" id="ms2"
+                            data-step="Paso 2 — Golpear para sacar mugre"
+                            data-img="https://images.unsplash.com/photo-1520004434532-66841620a415?q=80&w=900&auto=format&fit=crop">
+                            <span class="step-num">02</span>
+                            Sacudir las fibras
+                        </button>
+                        <button class="maint-step-btn" id="ms3"
+                            data-step="Paso 3 — Lavar con detergente suave"
+                            data-img="https://images.unsplash.com/photo-1558317374-067fb5f30001?q=80&w=900&auto=format&fit=crop">
+                            <span class="step-num">03</span>
+                            Lavado con detergente
+                        </button>
+                        <button class="maint-step-btn" id="ms4"
+                            data-step="Paso 4 — Secar boca abajo"
+                            data-img="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?q=80&w=900&auto=format&fit=crop">
+                            <span class="step-num">04</span>
+                            Secar boca abajo
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- GALERÍA EDITORIAL -->
+        <section class="am-gallery fade-in">
+            <div class="gal-item"
+                style="background-image: url('https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?q=80&w=800&auto=format&fit=crop')">
+            </div>
+            <div class="gal-item"
+                style="background-image: url('https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=800&auto=format&fit=crop')">
+            </div>
+            <div class="gal-item"
+                style="background-image: url('https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=800&auto=format&fit=crop')">
+            </div>
+        </section>
+
+        <!-- Formulario de Contacto -->
+        <section id="contacto-form" class="contact-form-section fade-in border-top" aria-label="Formulario de contacto">
+            <div class="grid-container contact-form-grid">
+                <div class="form-info-col">
+                    <h2 class="section-title">Contáctanos</h2>
+                    <p class="section-intro">Solicita una cotización para Atrapamugre o aclara tus dudas con un asesor.</p>
+                </div>
+                <div class="form-inputs-col">
+                    <form action="https://formsubmit.co/solotap@hotmail.com" method="POST" class="contact-form">
+                        <input type="hidden" name="_subject" value="Nuevo contacto desde Atrapamugre - SOLOTAP">
+                        <input type="hidden" name="_template" value="table">
+                        <input type="hidden" name="source_page" value="Atrapamugre">
+                        
+                        <div class="form-group">
+                            <label for="nombre">Nombre (obligatorio)</label>
+                            <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre completo">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Correo electrónico (obligatorio)</label>
+                            <input type="email" id="email" name="email" required placeholder="tu@email.com">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="telefono">Número Telefónico</label>
+                            <input type="tel" id="telefono" name="telefono" placeholder="+57 --- --- ----">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mensaje">Mensaje</label>
+                            <textarea id="mensaje" name="mensaje" rows="4" placeholder="¿En qué podemos ayudarte?"></textarea>
+                        </div>
+
+                        <button type="submit" class="submit-btn" id="submit-atrap">Enviar</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer id="contacto" class="site-footer border-top">
+        <div class="grid-container footer-grid">
+            <div class="footer-col">
+                <h4>Bogotá</h4>
+                <p>Carrera 17 No 22A – 50</p>
+            </div>
+            <div class="footer-col border-left">
+                <h4>Contacto</h4>
+                <p><a href="mailto:solotap@hotmail.com">solotap@hotmail.com</a></p>
+                <p>+57 311 467 5594</p>
+            </div>
+            <div class="footer-col border-left">
+                <h4>SOLOTAP</h4>
+                <p class="small-text">© 1995–2026</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // ─── ATRAPAMUGRE INTERACTIVE LOGIC ───
+        const tabs = document.querySelectorAll('.am-tab');
+        const datas = document.querySelectorAll('.traffic-data');
+        const slides = document.querySelectorAll('.monitor-slide');
+        const swatches = document.querySelectorAll('.sw');
+        const maintBtns = document.querySelectorAll('.maint-step-btn');
+        const colorNameDisplay = document.getElementById('color-name-display');
+
+        // Show monitor slide
+        function showSlide(id) {
+            slides.forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+        }
+
+        // Tab switching (Tráfico)
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                const target = tab.dataset.target;
+                datas.forEach(d => d.classList.remove('active'));
+                document.getElementById('data-' + target).classList.add('active');
+            });
+        });
+
+        // Swatch hover (Color) → actualiza monitor
+        swatches.forEach(sw => {
+            sw.addEventListener('mouseenter', () => {
+                swatches.forEach(s => s.classList.remove('active-sw'));
+                sw.classList.add('active-sw');
+                const colorName = sw.dataset.color;
+                const img = sw.dataset.img;
+                document.getElementById('monitor-color-img').src = img;
+                document.getElementById('monitor-color-txt').textContent = 'Color — ' + colorName;
+                if (colorNameDisplay) colorNameDisplay.textContent = colorName;
+                showSlide('slide-color');
+            });
+            sw.addEventListener('mouseleave', () => {
+                sw.classList.remove('active-sw');
+                if (colorNameDisplay) colorNameDisplay.textContent = '';
+                showSlide('slide-default');
+            });
+        });
+
+        // Mantenimiento hover → actualiza el mismo monitor
+        maintBtns.forEach(btn => {
+            btn.addEventListener('mouseenter', () => {
+                maintBtns.forEach(b => b.classList.remove('active-maint'));
+                btn.classList.add('active-maint');
+                const step = btn.dataset.step;
+                const img = btn.dataset.img;
+                document.getElementById('monitor-maint-img').src = img;
+                document.getElementById('monitor-maint-txt').textContent = step;
+                showSlide('slide-maint');
+            });
+            btn.addEventListener('mouseleave', () => {
+                btn.classList.remove('active-maint');
+                showSlide('slide-default');
+            });
+        });
+
+        // Contadores animados para las estadísticas
+        function animateCountersIn(container) {
+            container.querySelectorAll('.stat-num').forEach(el => {
+                const target = parseInt(el.dataset.target);
+                if (!target) return;
+                const unit = el.querySelector('.stat-unit');
+                const unitText = unit ? unit.outerHTML : '';
+                let start = 0;
+                const duration = 1600;
+                const increment = target / (duration / 16);
+                let current = 0;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    el.innerHTML = Math.round(current).toLocaleString('es-CO') + unitText;
+                }, 16);
+            });
+        }
+
+        // Trigger counters on load for the active tab
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const activeData = entry.target.querySelector('.traffic-data.active');
+                    if (activeData) animateCountersIn(activeData);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+
+        const coreSection = document.querySelector('.am-core');
+        if (coreSection) observer.observe(coreSection);
+
+        // Re-run counters when switching tabs
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const target = tab.dataset.target;
+                const dataEl = document.getElementById('data-' + target);
+                if (dataEl) animateCountersIn(dataEl);
+            });
+        });
+    </script>
+</body>
+
+</html>
