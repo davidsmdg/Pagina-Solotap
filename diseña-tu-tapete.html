@@ -11,11 +11,20 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;900&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-blue: #0046b8;
+            --accent-gold: #FFD700;
+            --dark-blue: #002e7a;
+        }
+
         .config-page {
-            background-color: #0046b8;
+            background-color: var(--primary-blue);
             color: #fff;
             min-height: 100vh;
             padding-top: 5rem;
+            padding-left: 5%;
+            padding-right: 5%;
+            padding-bottom: 8rem;
         }
 
         .stepper {
@@ -23,6 +32,8 @@
             justify-content: center;
             gap: 2rem;
             margin-bottom: 4rem;
+            padding-left: 2rem;
+            padding-right: 2rem;
         }
 
         .step {
@@ -41,8 +52,8 @@
         .step-num {
             width: 35px;
             height: 35px;
-            background: #FFD700;
-            color: #002e7a;
+            background: var(--accent-gold);
+            color: var(--dark-blue);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -63,12 +74,16 @@
             grid-template-columns: 1fr 1fr;
             gap: 4rem;
             align-items: start;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
         .config-options {
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
         }
 
         .option-card {
@@ -88,13 +103,13 @@
         .option-card:hover {
             background: rgba(255, 255, 255, 0.1);
             transform: translateX(10px);
-            border-color: #FFD700;
+            border-color: var(--accent-gold);
         }
 
         .option-card.selected {
-            background: #FFD700;
-            color: #002e7a;
-            border-color: #FFD700;
+            background: var(--accent-gold);
+            color: var(--dark-blue);
+            border-color: var(--accent-gold);
             box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
         }
 
@@ -113,7 +128,7 @@
 
         .warning-box {
             background: rgba(0, 0, 0, 0.2);
-            border-left: 4px solid #FFD700;
+            border-left: 4px solid var(--accent-gold);
             padding: 1rem;
             margin-top: 1rem;
             font-size: 0.8rem;
@@ -142,6 +157,8 @@
             display: flex;
             gap: 1rem;
             margin-top: 3rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
         }
 
         .btn-next, .btn-prev {
@@ -154,13 +171,14 @@
             cursor: pointer;
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 1rem;
             transition: all 0.3s;
         }
 
         .btn-next {
-            background: #FFD700;
-            color: #002e7a;
+            background: var(--accent-gold);
+            color: var(--dark-blue);
             box-shadow: 0 10px 20px rgba(255, 215, 0, 0.2);
         }
 
@@ -174,6 +192,129 @@
 
         .hidden { display: none !important; }
 
+        /* Custom Input Groups */
+        .custom-input-group {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 1.5rem;
+        }
+
+        .color-selector-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+            gap: 10px;
+            margin-top: 1rem;
+        }
+
+        .color-dot {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid rgba(255,255,255,0.2);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .color-dot.selected {
+            border-color: var(--accent-gold);
+            transform: scale(1.2);
+            box-shadow: 0 0 15px var(--accent-gold);
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .radio-item {
+            flex: 1;
+            background: rgba(255,255,255,0.1);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .radio-item.selected {
+            border-color: var(--accent-gold);
+            background: rgba(255,215,0,0.1);
+        }
+
+        .radio-item h4 { font-weight: 900; text-transform: uppercase; margin-bottom: 0.5rem; }
+        .radio-item p { font-size: 0.7rem; opacity: 0.7; }
+
+        /* Pop-up / Modal Styling */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            padding: 2rem;
+        }
+
+        .modal-content {
+            background: #fff;
+            color: #000;
+            padding: 3rem;
+            border-radius: 24px;
+            max-width: 900px;
+            width: 100%;
+            position: relative;
+            text-align: center;
+            border: 8px solid var(--accent-gold);
+        }
+
+        .rendered-design {
+            width: 100%;
+            background: #f0f0f0;
+            border-radius: 12px;
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 250px;
+            font-size: 2rem;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        .btn-close-modal {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            font-size: 2rem;
+            cursor: pointer;
+            opacity: 0.5;
+        }
+
+        /* WS Final CTA */
+        .btn-ws-final {
+            background: #25D366;
+            color: #fff;
+            padding: 1.5rem 3rem;
+            border-radius: 50px;
+            font-weight: 900;
+            text-transform: uppercase;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
         @media (max-width: 900px) {
             .config-container { grid-template-columns: 1fr; }
             .config-preview { order: -1; margin-bottom: 2rem; }
@@ -182,19 +323,40 @@
 </head>
 
 <body>
+    <!-- Render Modal -->
+    <div id="modal-design" class="modal-overlay">
+        <div class="modal-content">
+            <span class="btn-close-modal" onclick="closeModal()">&times;</span>
+            <h2 style="font-weight: 900; text-transform: uppercase;">¡Tu diseño está listo!</h2>
+            <p>Así se vería tu tapete personalizado SOLOTAP</p>
+            
+            <div id="design-canvas" class="rendered-design">
+                <!-- Content injected via JS -->
+            </div>
+
+            <div style="margin-top: 2rem;">
+                <p style="font-size: 0.9rem; margin-bottom: 2rem;">Para finalizar la compra y confirmar materiales, haz clic abajo:</p>
+                <a href="https://wa.me/573114675594" target="_blank" class="btn-ws-final">
+                    Enviar diseño a un asesor
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-2.32 0-4.519.903-6.16 2.544-3.4 3.4-3.4 8.924 0 12.324l.016.015-1.282 4.671 4.795-1.258.078.046c1.233.729 2.637 1.113 4.07 1.113 4.8 0 8.706-3.905 8.711-8.71 0-2.328-.905-4.516-2.547-6.155-1.642-1.64-3.83-2.55-6.181-2.55zm0 1.583c2.054 0 3.985.799 5.437 2.25 2.9 2.901 2.9 7.618 0 10.518-1.452 1.453-3.386 2.251-5.437 2.251-1.229 0-2.433-.314-3.491-.911l-.251-.141-2.59.68.692-2.521-.155-.247c-.643-1.025-.981-2.219-.982-3.456 0-3.666 2.981-6.647 6.647-6.647-1.13 0-14.773 0-15.903 0zm5.176 10.421c-.284-.143-1.683-.832-1.944-.927-.26-.095-.449-.142-.638.142-.189.284-.734.922-.899 1.111-.166.189-.331.213-.615.071-.284-.142-1.2-.442-2.285-1.41-.844-.753-1.413-1.683-1.579-1.967-.166-.284-.018-.438.124-.579.128-.127.284-.331.426-.497.143-.166.19-.284.284-.473.095-.189.047-.355-.023-.497-.071-.142-.638-1.538-.874-2.106-.23-.554-.462-.477-.638-.487l-.544-.01c-.189 0-.497.071-.757.355-.26.284-1 1-1 2.438 0 1.437 1.041 2.822 1.183 3.012.143.189 2.051 3.129 4.966 4.388.695.299 1.237.478 1.658.611.698.222 1.332.191 1.834.116.559-.083 1.683-.687 1.921-1.35.237-.662.237-1.229.166-1.35-.072-.121-.26-.192-.544-.334z"/></svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
     <header class="site-header">
         <div class="grid-container nav-wrapper">
-            <a href="index.html" class="logo">
+            <a href="index.html" class="logo" style="margin-left: 1rem;">
                 <img src="https://i.ibb.co/zVbSCt5L/asdcs.png" alt="SOLOTAP Logo" class="logo-img">
             </a>
-            <button class="menu-toggle" aria-label="Abrir Menú">
+            <button class="menu-toggle" aria-label="Abrir Menú" style="margin-right: 1rem;">
                 <span class="hamburger-line"></span>
                 <span class="hamburger-line"></span>
             </button>
         </div>
         <nav class="mega-menu">
             <div class="grid-container menu-content">
-                <div class="menu-col" style="grid-column: span 2;">
+                <div class="menu-col" style="grid-column: span 2; padding-left: 1rem;">
                     <h3 class="menu-cat">Empresa</h3>
                     <ul>
                         <li><a href="atrapamugre.html">Atrapamugre Tráfico Pesado</a></li>
@@ -225,7 +387,6 @@
                         <li><a href="index.html#contacto-form">Contacto Directo</a></li>
                     </ul>
                 </div>
-                <!-- Columna de Previsualización GIGANTE -->
                 <div class="menu-preview-col" style="grid-column: span 6; background: rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; padding: 4rem;">
                     <div id="menu-image-preview" style="width: 100%; max-width: 800px; text-align: center;">
                         <img id="menu-preview-img" src="https://i.ibb.co/zVbSCt5L/asdcs.png" alt="Vista previa" style="width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 30px 60px rgba(0,0,0,0.5); opacity: 0; transform: scale(0.95); transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);">
@@ -238,86 +399,111 @@
 
     <main class="config-page pb-5">
         <div class="grid-container py-5">
-            <div style="grid-column: span 12; text-align: center; margin-bottom: 2rem;">
+            <div style="grid-column: span 12; text-align: center; margin-bottom: 2rem; padding: 0 2rem;">
                 <h1 id="main-title" style="font-size: 3rem; font-weight: 900; text-transform: uppercase;">1. Elige la Categoría</h1>
                 <p id="main-desc" style="opacity: 0.7; font-size: 1.1rem;">Selecciona el propósito principal de tu tapete.</p>
             </div>
 
             <div class="stepper" style="grid-column: span 12;">
-                <div class="step active" data-step="1">
-                    <div class="step-num">1</div>
-                    <div class="step-label">Categoría</div>
-                </div>
-                <div class="step" data-step="2">
-                    <div class="step-num">2</div>
-                    <div class="step-label">Estilo</div>
-                </div>
-                <div class="step">
-                    <div class="step-num">3</div>
-                    <div class="step-label">Material</div>
-                </div>
-                <div class="step">
-                    <div class="step-num">4</div>
-                    <div class="step-label">Medidas</div>
-                </div>
-                <div class="step">
-                    <div class="step-num">5</div>
-                    <div class="step-label">Cotizar</div>
-                </div>
+                <!-- Stepper steps 1-5 -->
+                <div class="step active" data-step="1"><div class="step-num">1</div><div class="step-label">Categoría</div></div>
+                <div class="step" data-step="2"><div class="step-num">2</div><div class="step-label">Estilo</div></div>
+                <div class="step" data-step="3"><div class="step-num">3</div><div class="step-label">Material</div></div>
+                <div class="step" data-step="4"><div class="step-num">4</div><div class="step-label">Medidas</div></div>
+                <div class="step" data-step="5"><div class="step-num">5</div><div class="step-label">Personaliza</div></div>
             </div>
 
             <div class="config-container" style="grid-column: span 12;">
                 <div class="config-options">
-                    <!-- PASO 1: CATEGORÍAS -->
+                    <!-- Step contents injected via render functions -->
                     <div id="step-1-content">
-                        <div class="option-card" data-preview="https://images.unsplash.com/photo-1541599540903-21b333573cf0?q=80&w=800" onclick="selectCategory('mascotas', 'Mascotas')">
-                            <div style="flex:1">
-                                <h3>Mascotas</h3>
-                                <p>Diseños tiernos y resistentes para tus peludos.</p>
-                            </div>
-                            <span style="font-size: 1.5rem;">🐾</span>
+                        <!-- Step 1 inner cards -->
+                        <div class="option-card" data-preview="https://images.unsplash.com/photo-1541599540903-21b333573cf0?q=80&w=800" onclick="selectCategory('mascotas', event)">
+                            <div style="flex:1"><h3>Mascotas</h3><p>Diseños tiernos para tus peludos.</p></div><span style="font-size: 1.5rem;">🐾</span>
                         </div>
-                        <div class="option-card" style="margin-top:1rem" data-preview="https://images.unsplash.com/photo-1584622781564-1d987f7333c1?q=80&w=800" onclick="selectCategory('apartamentos', 'Apartamentos')">
-                            <div style="flex:1">
-                                <h3>Apartamentos</h3>
-                                <p>Elegancia y funcionalidad para tu entrada.</p>
-                            </div>
-                            <span style="font-size: 1.5rem;">🏠</span>
+                        <div class="option-card" style="margin-top:1rem" data-preview="https://images.unsplash.com/photo-1584622781564-1d987f7333c1?q=80&w=800" onclick="selectCategory('apartamentos', event)">
+                            <div style="flex:1"><h3>Apartamentos</h3><p>Elegancia para tu entrada.</p></div><span style="font-size: 1.5rem;">🏠</span>
                         </div>
-                        <div class="option-card" style="margin-top:1rem" data-preview="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=800" onclick="selectCategory('negocio', 'Negocio')">
-                            <div style="flex:1">
-                                <h3>Negocio</h3>
-                                <p>Impacto corporativo y limpieza industrial.</p>
-                            </div>
-                            <span style="font-size: 1.5rem;">🏢</span>
+                        <div class="option-card" style="margin-top:1rem" data-preview="https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=800" onclick="selectCategory('negocio', event)">
+                            <div style="flex:1"><h3>Negocio</h3><p>Imagen corporativa industrial.</p></div><span style="font-size: 1.5rem;">🏢</span>
                         </div>
-                        <div class="option-card" style="margin-top:1rem" data-preview="https://images.unsplash.com/photo-1520004434532-668416a08753?q=80&w=800" onclick="selectCategory('mensajes', 'Mensajes')">
-                            <div style="flex:1">
-                                <h3>Mensajes</h3>
-                                <p>Frases que dan la bienvenida con humor o amor.</p>
-                            </div>
-                            <span style="font-size: 1.5rem;">💬</span>
+                        <div class="option-card" style="margin-top:1rem" data-preview="https://images.unsplash.com/photo-1520004434532-668416a08753?q=80&w=800" onclick="selectCategory('mensajes', event)">
+                            <div style="flex:1"><h3>Mensajes</h3><p>Frases con humor o amor.</p></div><span style="font-size: 1.5rem;">💬</span>
                         </div>
-                        <div class="option-card" style="margin-top:1rem" data-preview="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=800" onclick="selectCategory('residencial', 'Residencial')">
-                            <div style="flex:1">
-                                <h3>Residencial</h3>
-                                <p>Soluciones integrales para edificios y conjuntos.</p>
-                            </div>
-                            <span style="font-size: 1.5rem;">🏢</span>
+                        <div class="option-card" style="margin-top:1rem" data-preview="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=800" onclick="selectCategory('residencial', event)">
+                            <div style="flex:1"><h3>Residencial</h3><p>Conjuntos y edificios.</p></div><span style="font-size: 1.5rem;">🏢</span>
                         </div>
                     </div>
 
-                    <!-- PASO 2: ESTILOS (Dinámico) -->
-                    <div id="step-2-content" class="hidden">
-                        <div id="styles-container">
-                            <!-- Se llena con JS -->
+                    <div id="step-2-content" class="hidden"><div id="styles-container"></div></div>
+                    <div id="step-3-content" class="hidden"><div id="materials-container"></div></div>
+                    <div id="step-4-content" class="hidden"><div id="measurements-container"></div></div>
+
+                    <!-- PASO 5: PERSONALIZAR -->
+                    <div id="step-5-content" class="hidden">
+                        <div id="personalization-fields">
+                            <!-- Background color -->
+                            <div class="custom-input-group">
+                                <h3 style="margin-bottom: 0.5rem;">Color del Tapete</h3>
+                                <p style="font-size: 0.7rem; opacity: 0.7;">Elige el color base de tu material.</p>
+                                <div class="color-selector-grid" id="bg-color-grid"></div>
+                            </div>
+
+                            <!-- Text/Logo color selection -->
+                            <div class="custom-input-group" id="text-logo-color-group">
+                                <h3 style="margin-bottom: 0.5rem;">Color del Diseño (Texto/Líneas)</h3>
+                                <p style="font-size: 0.7rem; opacity: 0.7;">Elige el color principal para tu personalización.</p>
+                                <div class="color-selector-grid" id="fg-color-grid"></div>
+                            </div>
+
+                            <!-- Style approach selection -->
+                            <div class="custom-input-group">
+                                <h3 style="margin-bottom: 0.5rem;">Enfoque del Diseño</h3>
+                                <div class="radio-group" id="design-approach">
+                                    <div class="radio-item selected" onclick="selectApproach('minimalist', this)">
+                                        <h4>Minimalista</h4>
+                                        <p>Monocromático, líneas limpias y alto contraste.</p>
+                                    </div>
+                                    <div class="radio-item" onclick="selectApproach('faithful', this)">
+                                        <h4>Apegado</h4>
+                                        <p>Colores similares al logo/texto original.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Field: Texto -->
+                            <div class="custom-input-group" id="text-input-group">
+                                <h3 id="personalize-title-input" style="margin-bottom: 1rem;">Texto de tu Tapete</h3>
+                                <input type="text" id="custom-text" class="custom-input" placeholder="Escribe aquí..." oninput="updatePreviewText(this.value)">
+                                <span id="char-limit-hint" class="input-limit-hint">Límite de caracteres: 8</span>
+                            </div>
+
+                            <!-- Field: Logo/Imagen -->
+                            <div class="custom-input-group" id="logo-input-group">
+                                <h3 style="margin-bottom: 1rem;">Sube tu Logo o Imagen</h3>
+                                <div class="file-input-wrapper">
+                                    <input type="file" id="logo-upload" class="hidden" accept="image/*" onchange="handleFileSelect(event)">
+                                    <label for="logo-upload" class="file-input-label">
+                                        <div id="file-label-text">Haz clic aquí para seleccionar imagen</div>
+                                        <div style="font-size: 0.7rem; margin-top: 0.5rem; opacity: 0.6;">PNG, JPG (Máx 5MB)</div>
+                                    </label>
+                                </div>
+                                <div class="warning-box">
+                                    ⚠️ IMPORTANTE: Si la imagen es de baja calidad o tiene detalles demasiado pequeños, el diseño podría simplificarse.
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="btn-nav-group">
+                    <div class="btn-nav-group" id="nav-bottom">
                         <button class="btn-prev hidden" id="btn-back">Anterior</button>
                         <button class="btn-next hidden" id="btn-continue">Siguiente Paso</button>
                     </div>
+
+                    <a href="https://wa.me/573114675594" target="_blank" class="ws-help-btn" id="ws-btn">
+                        ¿No encuentras una opción? Escríbenos directo
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-2.32 0-4.519.903-6.16 2.544-3.4 3.4-3.4 8.924 0 12.324l.016.015-1.282 4.671 4.795-1.258.078.046c1.233.729 2.637 1.113 4.07 1.113 4.8 0 8.706-3.905 8.711-8.71 0-2.328-.905-4.516-2.547-6.155-1.642-1.64-3.83-2.55-6.181-2.55zm0 1.583c2.054 0 3.985.799 5.437 2.25 2.9 2.901 2.9 7.618 0 10.518-1.452 1.453-3.386 2.251-5.437 2.251-1.229 0-2.433-.314-3.491-.911l-.251-.141-2.59.68.692-2.521-.155-.247c-.643-1.025-.981-2.219-.982-3.456 0-3.666 2.981-6.647 6.647-6.647-1.13 0-14.773 0-15.903 0zm5.176 10.421c-.284-.143-1.683-.832-1.944-.927-.26-.095-.449-.142-.638.142-.189.284-.734.922-.899 1.111-.166.189-.331.213-.615.071-.284-.142-1.2-.442-2.285-1.41-.844-.753-1.413-1.683-1.579-1.967-.166-.284-.018-.438.124-.579.128-.127.284-.331.426-.497.143-.166.19-.284.284-.473.095-.189.047-.355-.023-.497-.071-.142-.638-1.538-.874-2.106-.23-.554-.462-.477-.638-.487l-.544-.01c-.189 0-.497.071-.757.355-.26.284-1 1-1 2.438 0 1.437 1.041 2.822 1.183 3.012.143.189 2.051 3.129 4.966 4.388.695.299 1.237.478 1.658.611.698.222 1.332.191 1.834.116.559-.083 1.683-.687 1.921-1.35.237-.662.237-1.229.166-1.35-.072-.121-.26-.192-.544-.334z"/></svg>
+                    </a>
                 </div>
 
                 <div class="config-preview">
@@ -331,109 +517,261 @@
     <script>
         let currentStep = 1;
         let selectedCategory = '';
+        let selectedStyle = null;
+        let selectedMeasure = null;
+        let selectedBgColor = '#0046b8'; // Blue by default
+        let selectedFgColor = '#FFD700'; // Gold by default
+        let designApproach = 'minimalist';
+
+        const tapeteColors = [
+            '#0046b8', '#000000', '#2F4F4F', '#8B0000', '#006400', '#A9A9A9', '#DAA520', '#4B0082'
+        ]; // Deep blue, Black, Slate, DarkRed, DarkGreen, Gray, Gold, Indigo
+
+        const designColors = [
+            '#FFFFFF', '#FFD700', '#000000', '#FF4500', '#32CD32', '#00BFFF', '#FF69B4', '#87CEEB'
+        ]; // White, Gold, Black, Orange, lime, DeepSkyBlue, Pink, SkyBlue
 
         const styleData = {
             'apartamentos': [
-                { title: 'Número de Apartamento', desc: 'Clásico y funcional. Solo el número de tu residencia.', img: 'https://images.unsplash.com/photo-1585412727339-54e4bae3bbf9?q=80&w=800' },
-                { title: 'Número + Logo del Conjunto', desc: 'Personalización total con la identidad de tu edificio.', img: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=800', warning: 'Nota: Diseños muy complejos en espacios pequeños pueden simplificarse para garantizar calidad técnica.' },
-                { title: 'Estilo Minimalista', desc: 'Sin textos ni números. Enfoque puro en el material y color.', img: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=800' }
+                { title: 'Número de Apartamento', desc: 'Clásico y funcional.', img: 'https://images.unsplash.com/photo-1585412727339-54e4bae3bbf9?q=80&w=800', hasText: true, hasLogo: false },
+                { title: 'Número + Logo del Conjunto', desc: 'Personalización total.', img: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=800', hasText: true, hasLogo: true },
+                { title: 'Estilo Minimalista', desc: 'Sin textos ni números.', img: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=800', hasText: false, hasLogo: false }
             ],
             'negocio': [
-                { title: 'Logo Corporativo', desc: 'Tu marca en la entrada. Impresión de alta definición.', img: 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=800', warning: 'Nota: Algunos colores específicos pueden variar según nuestra gama técnica disponible.' },
-                { title: 'Bienvenida Estándar', desc: 'Uso de tipografías clásicas y mensajes de bienvenida.', img: 'https://images.unsplash.com/photo-1533035353720-f1c6a75cd8ab?q=80&w=800' }
+                { title: 'Logo Corporativo', desc: 'Tu marca en la entrada.', img: 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=800', hasText: true, hasLogo: true },
+                { title: 'Bienvenida Estándar', desc: 'Tipografías clásicas.', img: 'https://images.unsplash.com/photo-1533035353720-f1c6a75cd8ab?q=80&w=800', hasText: true, hasLogo: false }
             ],
             'mascotas': [
-                { title: 'Huellas & Nombre', desc: 'El nombre de tu mascota con sus huellas decorativas.', img: 'https://images.unsplash.com/photo-1541599540903-21b333573cf0?q=80&w=800' },
-                { title: 'Silueta de Raza', desc: 'La silueta característica de tu mejor amigo.', img: 'https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?q=80&w=800' }
+                { title: 'Huellas & Nombre', desc: 'El nombre de tu mascota con sus huellas.', img: 'https://images.unsplash.com/photo-1541599540903-21b333573cf0?q=80&w=800', hasText: true, hasLogo: false },
+                { title: 'Silueta de Raza', desc: 'La silueta característica.', img: 'https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?q=80&w=800', hasText: true, hasLogo: true }
+            ],
+            'mensajes': [
+                { title: 'Frase Personalizada', desc: 'Escribe tu propio mensaje.', img: 'https://images.unsplash.com/photo-1520004434532-668416a08753?q=80&w=800', hasText: true, hasLogo: false }
             ],
             'residencial': [
-                { title: 'Tapetes de Tráfico Pesado', desc: 'Alta durabilidad para zonas comunes.', img: 'https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?q=80&w=800' },
-                { title: 'Cuidado & Mantenimiento', desc: 'Kits especializados para edificios.', img: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=800' }
+                { title: 'Tráfico Pesado', desc: 'Durabilidad extrema.', img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=800', hasText: false, hasLogo: true }
             ]
         };
 
-        function selectCategory(id, name) {
+        const materials = [
+            { id: 'ap', title: 'Atrapamugre Tráfico Pesado', desc: 'Máxima resistencia.', img: 'https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?q=80&w=800' },
+            { id: 'am', title: 'Atrapamugre Tráfico Medio', desc: 'Perfecto para interiores.', img: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=800' }
+        ];
+
+        const measurements = [
+            { id: 'big', title: '120 x 80 cm', desc: 'Gran formato comercial.', img: 'https://images.unsplash.com/photo-1584622781564-1d987f7333c1?q=80&w=800', limit: 15 },
+            { id: 'small', title: '90 x 60 cm', desc: 'Estándar apartamentos.', img: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=800', limit: 8 }
+        ];
+
+        function selectCategory(id, event) {
             selectedCategory = id;
             document.querySelectorAll('#step-1-content .option-card').forEach(c => c.classList.remove('selected'));
             event.currentTarget.classList.add('selected');
             document.getElementById('btn-continue').classList.remove('hidden');
-            
-            const previews = {
-                'mascotas': 'https://images.unsplash.com/photo-1541599540903-21b333573cf0?q=80&w=800',
-                'apartamentos': 'https://images.unsplash.com/photo-1584622781564-1d987f7333c1?q=80&w=800',
-                'negocio': 'https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=800',
-                'mensajes': 'https://images.unsplash.com/photo-1520004434532-668416a08753?q=80&w=800',
-                'residencial': 'https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=800'
-            };
-            document.getElementById('preview-img').src = previews[id];
+            updatePreview(event.currentTarget.getAttribute('data-preview'));
         }
 
-        // Hover effect for Step 1
-        document.querySelectorAll('#step-1-content .option-card').forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                if(currentStep === 1) {
-                    const img = card.getAttribute('data-preview');
-                    document.getElementById('preview-img').src = img;
-                    document.getElementById('preview-img').style.opacity = '1';
-                }
-            });
-        });
+        function updatePreview(url) {
+            if(!url) return;
+            const img = document.getElementById('preview-img');
+            img.style.opacity = '0.5';
+            setTimeout(() => { img.src = url; img.style.opacity = '1'; }, 100);
+        }
 
         document.getElementById('btn-continue').addEventListener('click', () => {
-            if (currentStep === 1) {
-                currentStep = 2;
-                renderStep2();
-            }
+            if (currentStep === 1) { currentStep = 2; renderStep2(); }
+            else if (currentStep === 2) { currentStep = 3; renderStep3(); }
+            else if (currentStep === 3) { currentStep = 4; renderStep4(); }
+            else if (currentStep === 4) { currentStep = 5; renderStep5(); }
+            else if (currentStep === 5) { generateDesign(); }
         });
 
         document.getElementById('btn-back').addEventListener('click', () => {
-            if (currentStep === 2) {
-                currentStep = 1;
-                showStep1();
-            }
+            const btn = document.getElementById('btn-continue');
+            btn.innerText = 'Siguiente Paso';
+            if (currentStep === 2) { currentStep = 1; showStep(1); }
+            else if (currentStep === 3) { currentStep = 2; renderStep2(); }
+            else if (currentStep === 4) { currentStep = 3; renderStep3(); }
+            else if (currentStep === 5) { currentStep = 4; renderStep4(); }
         });
 
         function renderStep2() {
             document.getElementById('main-title').innerText = '2. Selecciona el Estilo';
-            document.getElementById('main-desc').innerText = `Opciones específicas para la categoría ${selectedCategory}.`;
-            document.getElementById('step-1-content').classList.add('hidden');
-            document.getElementById('step-2-content').classList.remove('hidden');
-            document.getElementById('btn-back').classList.remove('hidden');
-            document.querySelectorAll('.step')[1].classList.add('active');
-
+            showStep(2);
             const container = document.getElementById('styles-container');
             container.innerHTML = '';
-
             const styles = styleData[selectedCategory] || styleData['apartamentos'];
-            
             styles.forEach(style => {
-                const card = document.createElement('div');
-                card.className = 'option-card';
-                card.style.marginTop = '1rem';
-                card.style.display = 'block'; // Full width for styles
-                card.innerHTML = `
-                    <h3>${style.title}</h3>
-                    <p style="margin-bottom:1rem">${style.desc}</p>
-                    ${style.warning ? `<div class="warning-box">⚠️ ${style.warning}</div>` : ''}
-                `;
-                card.addEventListener('mouseenter', () => {
-                    document.getElementById('preview-img').src = style.img;
-                });
+                const card = createCard(style.title, style.desc);
+                card.addEventListener('mouseenter', () => updatePreview(style.img));
                 card.onclick = () => {
-                   document.querySelectorAll('#styles-container .option-card').forEach(c => c.classList.remove('selected'));
-                   card.classList.add('selected');
+                    document.querySelectorAll('#styles-container .option-card').forEach(c => c.classList.remove('selected'));
+                    card.classList.add('selected');
+                    selectedStyle = style;
+                    document.getElementById('btn-continue').classList.remove('hidden');
                 };
                 container.appendChild(card);
             });
         }
 
-        function showStep1() {
-            document.getElementById('main-title').innerText = '1. Elige la Categoría';
-            document.getElementById('main-desc').innerText = 'Selecciona el propósito principal de tu tapete.';
-            document.getElementById('step-1-content').classList.remove('hidden');
-            document.getElementById('step-2-content').classList.add('hidden');
-            document.getElementById('btn-back').classList.add('hidden');
-            document.querySelectorAll('.step')[1].classList.remove('active');
+        function renderStep3() {
+            document.getElementById('main-title').innerText = '3. Elige el Material';
+            showStep(3);
+            const container = document.getElementById('materials-container');
+            container.innerHTML = '';
+            materials.forEach(mat => {
+                const card = createCard(mat.title, mat.desc);
+                card.addEventListener('mouseenter', () => updatePreview(mat.img));
+                card.onclick = () => {
+                    document.querySelectorAll('#materials-container .option-card').forEach(c => c.classList.remove('selected'));
+                    card.classList.add('selected');
+                    document.getElementById('btn-continue').classList.remove('hidden');
+                };
+                container.appendChild(card);
+            });
+        }
+
+        function renderStep4() {
+            document.getElementById('main-title').innerText = '4. Define las Medidas';
+            showStep(4);
+            const container = document.getElementById('measurements-container');
+            container.innerHTML = '';
+            measurements.forEach(meas => {
+                const card = createCard(meas.title, meas.desc);
+                card.addEventListener('mouseenter', () => updatePreview(meas.img));
+                card.onclick = () => {
+                    document.querySelectorAll('#measurements-container .option-card').forEach(c => c.classList.remove('selected'));
+                    card.classList.add('selected');
+                    selectedMeasure = meas;
+                    document.getElementById('btn-continue').classList.remove('hidden');
+                };
+                container.appendChild(card);
+            });
+        }
+
+        function renderStep5() {
+            document.getElementById('main-title').innerText = '5. Personaliza tu Diseño';
+            showStep(5);
+            
+            // Render Color Grids
+            const bgGrid = document.getElementById('bg-color-grid');
+            const fgGrid = document.getElementById('fg-color-grid');
+            bgGrid.innerHTML = ''; fgGrid.innerHTML = '';
+
+            tapeteColors.forEach(color => {
+                const dot = document.createElement('div');
+                dot.className = `color-dot ${color === selectedBgColor ? 'selected' : ''}`;
+                dot.style.background = color;
+                dot.onclick = () => {
+                    document.querySelectorAll('#bg-color-grid .color-dot').forEach(d => d.classList.remove('selected'));
+                    dot.classList.add('selected');
+                    selectedBgColor = color;
+                };
+                bgGrid.appendChild(dot);
+            });
+
+            designColors.forEach(color => {
+                const dot = document.createElement('div');
+                dot.className = `color-dot ${color === selectedFgColor ? 'selected' : ''}`;
+                dot.style.background = color;
+                dot.onclick = () => {
+                    document.querySelectorAll('#fg-color-grid .color-dot').forEach(d => d.classList.remove('selected'));
+                    dot.classList.add('selected');
+                    selectedFgColor = color;
+                };
+                fgGrid.appendChild(dot);
+            });
+
+            const textGroup = document.getElementById('text-input-group');
+            const logoGroup = document.getElementById('logo-input-group');
+            logoGroup.classList.add('hidden');
+            textGroup.classList.add('hidden');
+
+            if(selectedStyle) {
+                if(selectedStyle.hasText) {
+                    textGroup.classList.remove('hidden');
+                    const textInput = document.getElementById('custom-text');
+                    const charHint = document.getElementById('char-limit-hint');
+                    const limit = selectedMeasure?.limit || 8;
+                    textInput.maxLength = limit;
+                    charHint.innerText = `Límite de caracteres: ${limit} (Según medida ${selectedMeasure?.title})`;
+                }
+                if(selectedStyle.hasLogo) {
+                    logoGroup.classList.remove('hidden');
+                }
+            }
+
+            document.getElementById('btn-continue').innerText = 'Generar Diseño';
+            document.getElementById('btn-continue').classList.remove('hidden');
+        }
+
+        function selectApproach(val, el) {
+            document.querySelectorAll('#design-approach .radio-item').forEach(i => i.classList.remove('selected'));
+            el.classList.add('selected');
+            designApproach = val;
+            document.getElementById('text-logo-color-group').classList.toggle('hidden', val === 'faithful');
+        }
+
+        function generateDesign() {
+            const canvas = document.getElementById('design-canvas');
+            const textValue = document.getElementById('custom-text').value || "TU TEXTO AQUÍ";
+            
+            canvas.style.backgroundColor = selectedBgColor;
+            canvas.style.color = (designApproach === 'minimalist') ? selectedFgColor : '#FFD700'; // Default gold for faithful demo
+            
+            let content = '';
+            if(selectedStyle?.hasLogo) {
+                content += `<span style="font-size: 3rem; margin-right: 1rem;">${getCategoryIcon(selectedCategory)}</span>`;
+            }
+            if(selectedStyle?.hasText) {
+                content += `<span>${textValue}</span>`;
+            }
+            if(!selectedStyle?.hasText && !selectedStyle?.hasLogo) {
+                content = "ESTILO MINIMALISTA";
+            }
+
+            canvas.innerHTML = content;
+            document.getElementById('modal-design').style.display = 'flex';
+        }
+
+        function getCategoryIcon(cat) {
+            switch(cat) {
+                case 'mascotas': return '🐾';
+                case 'apartamentos': return '🏠';
+                case 'negocio': return '🏢';
+                default: return '✨';
+            }
+        }
+
+        function closeModal() { document.getElementById('modal-overlay')?.style.display || (document.getElementById('modal-design').style.display = 'none'); }
+
+        function handleFileSelect(event) {
+            const fileName = event.target.files[0]?.name || "Haz clic aquí para seleccionar imagen";
+            const label = document.getElementById('file-label-text');
+            label.innerText = fileName;
+            label.style.color = '#FFD700';
+        }
+
+        function createCard(title, desc) {
+            const card = document.createElement('div');
+            card.className = 'option-card';
+            card.style.marginTop = '1rem';
+            card.style.display = 'block';
+            card.innerHTML = `<h3 style="font-size: 1.3rem;">${title}</h3><p>${desc}</p>`;
+            return card;
+        }
+
+        function showStep(step) {
+            [1,2,3,4,5].forEach(s => {
+                const el = document.getElementById(`step-${s}-content`);
+                if(el) el.classList.add('hidden');
+            });
+            const currentEl = document.getElementById(`step-${step}-content`);
+            if(currentEl) currentEl.classList.remove('hidden');
+            document.querySelectorAll('.step').forEach((s, idx) => s.classList.toggle('active', (idx + 1) <= step));
+            document.getElementById('btn-back').classList.toggle('hidden', step === 1);
+            document.getElementById('btn-continue').classList.toggle('hidden', true);
+            document.getElementById('btn-continue').innerText = (step === 5) ? 'Generar Diseño' : 'Siguiente Paso';
         }
     </script>
 </body>
