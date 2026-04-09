@@ -130,12 +130,16 @@ h2.section-title {
   background-color: var(--text-color);
   color: var(--white);
   overflow: hidden;
-  transition: height 0.6s cubic-bezier(0.77, 0, 0.175, 1);
-  z-index: 999;
+  transition: height 0.6s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.3s;
+  z-index: 99999;
+  opacity: 0;
+  visibility: hidden;
 }
 
 .mega-menu.active {
   height: 100vh;
+  opacity: 1;
+  visibility: visible;
 }
 
 .menu-content {
@@ -1430,3 +1434,36 @@ a.img-box {
     padding: 4rem 2rem;
   }
 }
+
+/* BOTÓN FLOTANTE WHATSAPP */
+.whatsapp-float {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 60px;
+  height: 60px;
+  background-color: #25D366;
+  color: #FFF;
+  border-radius: 50px;
+  text-align: center;
+  font-size: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.1);
+  background-color: #128C7E;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+.whatsapp-float svg {
+  width: 32px;
+  height: 32px;
+  fill: currentColor;
+}

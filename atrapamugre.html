@@ -16,11 +16,17 @@
         /* Hero estático */
         .am-hero {
             background: #fff;
-            padding: 6rem 4rem 4rem;
+            padding: 4rem 4rem 3rem;
             border-bottom: 1px solid rgba(10,25,47,0.12);
         }
+        .am-hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
         .am-hero h1 {
-            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
             font-weight: 900;
             letter-spacing: -0.03em;
             line-height: 1;
@@ -30,9 +36,16 @@
         }
         .am-hero p {
             font-size: 1.1rem;
-            max-width: 55ch;
+            max-width: 45ch;
             opacity: 0.6;
             line-height: 1.6;
+            margin-bottom: 0;
+        }
+        .am-hero-img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border: 1px solid rgba(10,25,47,0.1);
         }
 
         /* Tabs de selección */
@@ -43,7 +56,7 @@
         }
         .am-tab {
             flex: 1;
-            padding: 2rem 4rem;
+            padding: 1.5rem 3rem;
             background: none;
             border: none;
             border-right: 1px solid rgba(10,25,47,0.12);
@@ -74,17 +87,20 @@
         /* Layout principal de 3 columnas */
         .am-core {
             display: grid;
-            grid-template-columns: 280px 1fr 300px;
-            min-height: 75vh;
+            grid-template-columns: 320px 1fr 320px;
+            height: 600px;
             border-bottom: 1px solid rgba(10,25,47,0.12);
+            overflow: hidden; /* Fuerza el recorte de cualquier desborde */
+            box-sizing: border-box;
         }
 
         /* Columna Izquierda: Specs */
         .am-specs {
-            padding: 3rem 2.5rem;
+            padding: 2rem 2.5rem;
             background: #fff;
             border-right: 1px solid rgba(10,25,47,0.12);
-            overflow: hidden;
+            overflow-y: auto;
+            box-sizing: border-box;
         }
         .traffic-data { display: none; }
         .traffic-data.active { display: block; }
@@ -131,6 +147,8 @@
             position: relative;
             background: #0A192F;
             overflow: hidden;
+            height: 100%;
+            box-sizing: border-box;
         }
         .monitor-slide {
             position: absolute;
@@ -151,16 +169,18 @@
         .monitor-caption {
             position: relative;
             z-index: 3;
-            margin: 2.5rem;
+            margin: 1.5rem;
             background: #fff;
-            padding: 0.9rem 1.8rem;
-            font-size: 0.8rem;
+            padding: 0.7rem 1.4rem;
+            font-size: 0.75rem;
             font-weight: 900;
             text-transform: uppercase;
             letter-spacing: 0.1em;
             color: #0A192F;
-            max-width: 280px;
+            max-width: fit-content;
         }
+
+        .am-monitor:hover { cursor: zoom-in; }
 
         /* Columna Derecha: Controles */
         .am-controls {
@@ -170,9 +190,9 @@
             flex-direction: column;
         }
         .ctrl-block {
-            padding: 2.5rem 2rem;
+            padding: 1.5rem;
             border-bottom: 1px solid rgba(10,25,47,0.12);
-            flex: 1;
+            overflow: hidden;
         }
         .ctrl-block:last-child { border-bottom: none; }
         .ctrl-title {
@@ -188,8 +208,8 @@
         /* Paleta de colores – cuadrícula */
         .swatch-palette {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 6px;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 5px;
         }
         .sw {
             aspect-ratio: 1;
@@ -272,6 +292,37 @@
             .am-tab .t-name { font-size: 1rem; }
             .swatch-palette { grid-template-columns: repeat(6, 1fr); }
         }
+
+        /* LIGHTBOX MODAL */
+        .am-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(10,25,47,0.98);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem;
+            cursor: zoom-out;
+            backdrop-filter: blur(8px);
+        }
+        .am-modal.active { display: flex; }
+        .am-modal img {
+            max-width: 90%;
+            max-height: 85vh;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 50px 100px rgba(0,0,0,0.8);
+            object-fit: contain;
+        }
+        .modal-close {
+            position: absolute;
+            top: 2rem;
+            right: 3rem;
+            color: #fff;
+            font-size: 3rem;
+            font-weight: 200;
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -336,8 +387,13 @@
 
         <!-- HERO ESTÁTICO (Banner) -->
         <section class="am-hero fade-in">
-            <h1>Tapetes<br>Atrapamugre</h1>
-            <p>Fabricación directa en Bogotá desde 1995. Soluciones de retención de suciedad y protección de pisos para accesos de alto tráfico industrial e institucional.</p>
+            <div class="am-hero-content">
+                <div>
+                    <h1>Tapetes<br>Atrapamugre</h1>
+                    <p>Fabricación directa en Bogotá desde 1995. Soluciones de retención de suciedad y protección de pisos para accesos de alto tráfico industrial e institucional.</p>
+                </div>
+                <img src="assets/img/tapete_atrapamugre_banner.jpg" alt="SOLOTAP Atrapamugre" class="am-hero-img">
+            </div>
         </section>
 
         <!-- TABS: TRÁFICO EXTRAPESADO / TRÁFICO MEDIO -->
@@ -411,7 +467,7 @@
             <div class="am-monitor">
                 <!-- Vista por defecto -->
                 <div class="monitor-slide active" id="slide-default">
-                    <img src="https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?q=80&w=1200&auto=format&fit=crop" alt="Tapete Atrapamugre Solotap">
+                    <img src="assets/img/tapete_atrapamugre_banner.jpg" alt="Tapete Atrapamugre Solotap">
                     <div class="monitor-caption">Calidad colombiana desde 1995</div>
                 </div>
                 <!-- Vista color -->
@@ -434,46 +490,46 @@
                     <span class="ctrl-title">Paleta de Colores</span>
                     <div class="swatch-palette">
                         <div class="sw" style="background:#111111" data-color="Negro"
-                            data-img="https://images.unsplash.com/photo-1595428774223-ef52624120ec?q=80&w=900&auto=format&fit=crop"></div>
+                            data-img="assets/img/tapete_atrapamugre_Negro.jpg"></div>
                         <div class="sw" style="background:#4a4a4a" data-color="Gris Oscuro"
-                            data-img="https://images.unsplash.com/photo-1544207427-ada1e80d1e17?q=80&w=900&auto=format&fit=crop"></div>
+                            data-img="assets/img/tapete_atrapamugre_Gris oscuro.jpg"></div>
                         <div class="sw" style="background:#b0b0b0" data-color="Gris Claro"
-                            data-img="https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=900&auto=format&fit=crop"></div>
+                            data-img="assets/img/tapete_atrapamugre_Gris.jpg"></div>
                         <div class="sw" style="background:#f0f0f0;border:1px solid #ccc" data-color="Blanco"
-                            data-img="https://images.unsplash.com/photo-1518133910546-b6c2fb7d79e3?q=80&w=900&auto=format&fit=crop"></div>
+                            data-img="assets/img/tapete_atrapamugre_Blanco.jpg"></div>
                         <div class="sw" style="background:#1a4d1a" data-color="Verde Oscuro"
-                            data-img="https://images.unsplash.com/photo-1528642463367-1d3083c1c7bb?q=80&w=900&auto=format&fit=crop"></div>
+                            data-img="assets/img/tapete_atrapamugre_Verde oscuro.jpg"></div>
 
                         <div class="sw" style="background:#5ca05c" data-color="Verde Claro"
-                            data-img="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=900&auto=format&fit=crop"></div>
+                            data-img="assets/img/tapete_atrapamugre_Verde.jpg"></div>
                         <div class="sw" style="background:#a8c8a8" data-color="Verde Biche"
-                            data-img="https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?q=80&w=900&auto=format&fit=crop"></div>
+                            data-img="assets/img/tapete_atrapamugre_Verde biche.jpg"></div>
                         <div class="sw" style="background:#cc0000" data-color="Rojo"
-                            data-img="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=900&auto=format&fit=crop"></div>
+                            data-img="assets/img/tapete_atrapamugre_Rojo.jpg"></div>
                         <div class="sw" style="background:#87CEEB" data-color="Azul Cielo"
-                            data-img="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=900&auto=format&fit=crop"></div>
+                            data-img="assets/img/tapete_atrapamugre_Azul celeste.jpg"></div>
                         <div class="sw" style="background:#4169E1" data-color="Azul Rey"
-                            data-img="https://images.unsplash.com/photo-1557683316-973673baf926?q=80&w=900&auto=format&fit=crop"></div>
+                            data-img="assets/img/tapete_atrapamugre_Azul rey.jpg"></div>
 
                         <div class="sw" style="background:#00008B" data-color="Azul Oscuro"
-                            data-img="https://images.unsplash.com/photo-1533035353720-f1c6a75cd8ab?q=80&w=900&auto=format&fit=crop"></div>
+                            data-img="assets/img/tapete_atrapamugre_azul oscuro.jpg"></div>
                         <div class="sw" style="background:#d4aa00" data-color="Amarillo"
-                            data-img="https://images.unsplash.com/photo-1588600036302-237a346f007e?q=80&w=900&auto=format&fit=crop"></div>
+                            data-img="assets/img/tapete_atrapamugre_Amarillo.jpg"></div>
                         <div class="sw" style="background:#b35a00" data-color="Ocre"
-                            data-img="https://images.unsplash.com/photo-1544383333-54522c03b27e?q=80&w=900&auto=format&fit=crop"></div>
+                            data-img="assets/img/tapete_atrapamugre_ocre.jpg"></div>
                         <div class="sw" style="background:#e06600" data-color="Naranja"
-                            data-img="https://images.unsplash.com/photo-1563245372-f21724e3856d?q=80&w=900&auto=format&fit=crop"></div>
+                            data-img="assets/img/tapete_atrapamugre_Naranja.jpg"></div>
                         <div class="sw" style="background:#6b0020" data-color="Vinotinto"
-                            data-img="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?q=80&w=900&auto=format&fit=crop"></div>
+                            data-img="assets/img/tapete_atrapamugre_vinotinto.jpg"></div>
 
-                        <div class="sw" style="background:#e8709a" data-color="Rosado"
-                            data-img="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=900&auto=format&fit=crop"></div>
+                        <div class="sw" style="background:#f1618c" data-color="Fucsia"
+                            data-img="assets/img/tapete_atrapamugre_fucsia.jpg"></div>
                         <div class="sw" style="background:#6b0080" data-color="Morado"
-                            data-img="https://images.unsplash.com/photo-1560114928-40f1f1eb26a0?q=80&w=900&auto=format&fit=crop"></div>
+                            data-img="assets/img/tapete_atrapamugre_morado.jpg"></div>
                         <div class="sw" style="background:#d4c4a0" data-color="Beige"
-                            data-img="https://images.unsplash.com/photo-1596492784531-6e6eb5ea9993?q=80&w=900&auto=format&fit=crop"></div>
+                            data-img="assets/img/tapete_atrapamugre_Beige.jpg"></div>
                         <div class="sw" style="background:#6b3010" data-color="Café"
-                            data-img="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=900&auto=format&fit=crop"></div>
+                            data-img="assets/img/tapete_atrapamugre_Cafe.jpg"></div>
                     </div>
                     <div class="selected-color-name" id="color-name-display"></div>
                 </div>
@@ -512,18 +568,6 @@
             </div>
         </section>
 
-        <!-- GALERÍA EDITORIAL -->
-        <section class="am-gallery fade-in">
-            <div class="gal-item"
-                style="background-image: url('https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?q=80&w=800&auto=format&fit=crop')">
-            </div>
-            <div class="gal-item"
-                style="background-image: url('https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=800&auto=format&fit=crop')">
-            </div>
-            <div class="gal-item"
-                style="background-image: url('https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=800&auto=format&fit=crop')">
-            </div>
-        </section>
 
         <!-- Formulario de Contacto -->
         <section id="contacto-form" class="contact-form-section fade-in border-top" aria-label="Formulario de contacto">
@@ -584,114 +628,178 @@
         </div>
     </footer>
 
+    <!-- MODAL PARA ZOOM DE IMAGEN -->
+    <div class="am-modal" id="image-modal">
+        <span class="modal-close">&times;</span>
+        <img id="modal-img" src="" alt="SOLOTAP Zoom">
+    </div>
+
     <script src="script.js"></script>
     <script>
         // ─── ATRAPAMUGRE INTERACTIVE LOGIC ───
-        const tabs = document.querySelectorAll('.am-tab');
-        const datas = document.querySelectorAll('.traffic-data');
-        const slides = document.querySelectorAll('.monitor-slide');
-        const swatches = document.querySelectorAll('.sw');
-        const maintBtns = document.querySelectorAll('.maint-step-btn');
-        const colorNameDisplay = document.getElementById('color-name-display');
+        (function() {
+            try {
+                const tabs = document.querySelectorAll('.am-tab');
+                const datas = document.querySelectorAll('.traffic-data');
+                const slides = document.querySelectorAll('.monitor-slide');
+                const swatches = document.querySelectorAll('.sw');
+                const maintBtns = document.querySelectorAll('.maint-step-btn');
+                const colorNameDisplay = document.getElementById('color-name-display');
+                const modal = document.getElementById('image-modal');
+                const modalImg = document.getElementById('modal-img');
+                let persistentImg = null;
+                let persistentText = null;
 
-        // Show monitor slide
-        function showSlide(id) {
-            slides.forEach(s => s.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-        }
+                if (!slides.length) return;
 
-        // Tab switching (Tráfico)
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                tabs.forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-                const target = tab.dataset.target;
-                datas.forEach(d => d.classList.remove('active'));
-                document.getElementById('data-' + target).classList.add('active');
-            });
-        });
-
-        // Swatch hover (Color) → actualiza monitor
-        swatches.forEach(sw => {
-            sw.addEventListener('mouseenter', () => {
-                swatches.forEach(s => s.classList.remove('active-sw'));
-                sw.classList.add('active-sw');
-                const colorName = sw.dataset.color;
-                const img = sw.dataset.img;
-                document.getElementById('monitor-color-img').src = img;
-                document.getElementById('monitor-color-txt').textContent = 'Color — ' + colorName;
-                if (colorNameDisplay) colorNameDisplay.textContent = colorName;
-                showSlide('slide-color');
-            });
-            sw.addEventListener('mouseleave', () => {
-                sw.classList.remove('active-sw');
-                if (colorNameDisplay) colorNameDisplay.textContent = '';
-                showSlide('slide-default');
-            });
-        });
-
-        // Mantenimiento hover → actualiza el mismo monitor
-        maintBtns.forEach(btn => {
-            btn.addEventListener('mouseenter', () => {
-                maintBtns.forEach(b => b.classList.remove('active-maint'));
-                btn.classList.add('active-maint');
-                const step = btn.dataset.step;
-                const img = btn.dataset.img;
-                document.getElementById('monitor-maint-img').src = img;
-                document.getElementById('monitor-maint-txt').textContent = step;
-                showSlide('slide-maint');
-            });
-            btn.addEventListener('mouseleave', () => {
-                btn.classList.remove('active-maint');
-                showSlide('slide-default');
-            });
-        });
-
-        // Contadores animados para las estadísticas
-        function animateCountersIn(container) {
-            container.querySelectorAll('.stat-num').forEach(el => {
-                const target = parseInt(el.dataset.target);
-                if (!target) return;
-                const unit = el.querySelector('.stat-unit');
-                const unitText = unit ? unit.outerHTML : '';
-                let start = 0;
-                const duration = 1600;
-                const increment = target / (duration / 16);
-                let current = 0;
-                const timer = setInterval(() => {
-                    current += increment;
-                    if (current >= target) {
-                        current = target;
-                        clearInterval(timer);
-                    }
-                    el.innerHTML = Math.round(current).toLocaleString('es-CO') + unitText;
-                }, 16);
-            });
-        }
-
-        // Trigger counters on load for the active tab
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const activeData = entry.target.querySelector('.traffic-data.active');
-                    if (activeData) animateCountersIn(activeData);
-                    observer.unobserve(entry.target);
+                // Show monitor slide
+                function showSlide(id) {
+                    const el = document.getElementById(id);
+                    if (!el) return;
+                    slides.forEach(s => s.classList.remove('active'));
+                    el.classList.add('active');
                 }
-            });
-        }, { threshold: 0.2 });
 
-        const coreSection = document.querySelector('.am-core');
-        if (coreSection) observer.observe(coreSection);
+                // Tab switching
+                tabs.forEach(tab => {
+                    tab.addEventListener('click', () => {
+                        tabs.forEach(t => t.classList.remove('active'));
+                        tab.classList.add('active');
+                        const target = tab.dataset.target;
+                        const targetData = document.getElementById('data-' + target);
+                        if (targetData) {
+                            datas.forEach(d => d.classList.remove('active'));
+                            targetData.classList.add('active');
+                        }
+                    });
+                });
 
-        // Re-run counters when switching tabs
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                const target = tab.dataset.target;
-                const dataEl = document.getElementById('data-' + target);
-                if (dataEl) animateCountersIn(dataEl);
-            });
-        });
+                // Swatch Interactivity
+                swatches.forEach(sw => {
+                    sw.addEventListener('mouseenter', () => {
+                        const colorName = sw.dataset.color;
+                        const img = sw.dataset.img;
+                        updateMonitor(img, 'Color — ' + colorName, colorName);
+                        showSlide('slide-color');
+                    });
+
+                    sw.addEventListener('mouseleave', () => {
+                        if (persistentImg) {
+                            updateMonitor(persistentImg, persistentText, persistentText.split(' — ')[1]);
+                        } else {
+                            showSlide('slide-default');
+                            if (colorNameDisplay) colorNameDisplay.textContent = '';
+                        }
+                    });
+
+                    sw.addEventListener('click', () => {
+                        swatches.forEach(s => s.classList.remove('active-sw'));
+                        sw.classList.add('active-sw');
+                        persistentImg = sw.dataset.img;
+                        persistentText = 'Color — ' + sw.dataset.color;
+                        updateMonitor(persistentImg, persistentText, sw.dataset.color);
+                    });
+                });
+
+                function updateMonitor(img, text, smallLabel) {
+                    const monitorImg = document.getElementById('monitor-color-img');
+                    const monitorTxt = document.getElementById('monitor-color-txt');
+                    if (monitorImg) monitorImg.src = img;
+                    if (monitorTxt) monitorTxt.textContent = text;
+                    if (colorNameDisplay) colorNameDisplay.textContent = smallLabel;
+                }
+
+                // Modal logic
+                if (modal && modalImg) {
+                    document.querySelectorAll('.monitor-slide img').forEach(img => {
+                        img.addEventListener('click', () => {
+                            if (img.src && !img.src.includes('undefined')) {
+                                modalImg.src = img.src;
+                                modal.classList.add('active');
+                            }
+                        });
+                    });
+                    modal.addEventListener('click', () => modal.classList.remove('active'));
+                }
+
+                // Mantenimiento
+                maintBtns.forEach(btn => {
+                    btn.addEventListener('mouseenter', () => {
+                        const step = btn.dataset.step;
+                        const img = btn.dataset.img;
+                        const maintImg = document.getElementById('monitor-maint-img');
+                        const maintTxt = document.getElementById('monitor-maint-txt');
+                        if (maintImg) maintImg.src = img;
+                        if (maintTxt) maintTxt.textContent = step;
+                        showSlide('slide-maint');
+                    });
+                    btn.addEventListener('mouseleave', () => {
+                        if (persistentImg) {
+                            showSlide('slide-color');
+                        } else {
+                            showSlide('slide-default');
+                        }
+                    });
+                });
+
+                // Counters logic
+                function animateCountersIn(container) {
+                    if (!container) return;
+                    container.querySelectorAll('.stat-num').forEach(el => {
+                        const target = parseInt(el.dataset.target);
+                        if (!target) return;
+                        const unit = el.querySelector('.stat-unit');
+                        const unitText = unit ? unit.outerHTML : '';
+                        let current = 0;
+                        const duration = 1600;
+                        const increment = target / (duration / 16);
+                        const timer = setInterval(() => {
+                            current += increment;
+                            if (current >= target) {
+                                current = target;
+                                clearInterval(timer);
+                            }
+                            el.innerHTML = Math.round(current).toLocaleString('es-CO') + unitText;
+                        }, 16);
+                    });
+                }
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const activeData = entry.target.querySelector('.traffic-data.active');
+                            if (activeData) animateCountersIn(activeData);
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.2 });
+
+                const coreSection = document.querySelector('.am-core');
+                if (coreSection) observer.observe(coreSection);
+
+                tabs.forEach(tab => {
+                    tab.addEventListener('click', () => {
+                        const target = tab.dataset.target;
+                        const dataEl = document.getElementById('data-' + target);
+                        if (dataEl) animateCountersIn(dataEl);
+                    });
+                });
+            } catch (err) {
+                console.error("Interactive script error:", err);
+            }
+        })();
     </script>
+    <!-- Botón Flotante WhatsApp -->
+    <a href="https://wa.me/573114675594?text=Hola%20SOLOTAP,%20vengo%20de%20la%20página%20web" 
+       style="position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background-color: #25d366; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 2px 2px 15px rgba(0,0,0,0.3); z-index: 10000; text-decoration: none; transition: transform 0.3s ease;"
+       onmouseover="this.style.transform='scale(1.1)'" 
+       onmouseout="this.style.transform='scale(1)'"
+       target="_blank">
+        <svg viewBox="0 0 32 32" style="width: 35px; height: 35px; fill: white;" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16 0c-8.837 0-16 7.163-16 16 0 2.825.737 5.48 2.025 7.788l-2.025 7.412 7.588-1.987c2.208 1.2 4.73 1.887 7.412 1.887 8.837 0 16-7.163 16-16s-7.163-16-16-16zM16 29.213c-2.438 0-4.725-.65-6.7-1.788l-.487-.275-4.475 1.175 1.2-4.363-.3-.488c-1.25-1.988-1.912-4.3-1.912-6.725 0-7.238 5.887-13.125 13.125-13.125s13.125 5.887 13.125 13.125-5.887 13.125-13.125 13.125zM22.513 18.25c-.363-.188-2.125-1.05-2.45-1.175-.325-.113-.563-.175-.8.175-.238.35-.913 1.163-1.125 1.4-.2.225-.413.25-.775.063-.35-.188-1.488-.55-2.825-1.738-1.038-.925-1.738-2.063-1.95-2.413s-.025-.538.163-.725c.163-.163.363-.425.538-.638.175-.213.238-.363.35-.6.113-.238.05-.45-.025-.6-.075-.15-.8-1.925-1.1-2.65-.288-.7-.575-.6-.8-.6-.2-.013-.425-.013-.65-.013s-.588.075-.888.4c-.313.325-1.188 1.163-1.188 2.825s1.213 3.275 1.375 3.5c.163.225 2.388 3.65 5.788 5.113.813.35 1.438.563 1.938.725.813.263 1.55.225 2.138.138.65-.1 2-1.163 2.275-1.613.288-.45.288-.838.2-.913-.087-.087-.313-.138-.675-.325z"/>
+        </svg>
+    </a>
 </body>
+
 
 </html>
